@@ -7,14 +7,14 @@ const http = require("http").Server(app);
 const io = new Server(http)
 
 io.on('connect', socket => {
-  socket.on('color', (color: any) => {
+  socket.on('color', (color) => {
     io.emit('color', color)
   })
 })
 
 //  Boring server stuff
 // Swap over non-https connections to https
-function checkHttps(request: Request, response: Response, next: NextFunction) {
+function checkHttps(request, response, next) {
   // Check the protocol — if http, redirect to https.
   const proto = request.get("X-Forwarded-Proto");
   if (proto && proto.indexOf("https") !== -1) {
@@ -28,13 +28,13 @@ app.all("*", checkHttps);
 
 // Express port-switching logic
 // no touch
-let port: string | number;
+let port
 console.log("❇️ NODE_ENV is", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   //When NODE_ENV is production, serve the client-side in a static package
   port = process.env.PORT || 3000;
   app.use(express.static(path.join(__dirname, "../build")));
-  app.get("*", (_: any, response: Response) => {
+  app.get("*", (_, response) => {
     response.sendFile(path.join(__dirname, "../build", "index.html"));
   });
 } else {

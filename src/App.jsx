@@ -6,7 +6,7 @@ const socket = io()
 export default function App() {
     const [color, setColor] = useState('#FFFFFF')
 
-    const submit: React.FormEventHandler = (e) => {
+    const submit = (e) => {
         e.preventDefault()
         socket.emit('color', color)
     }

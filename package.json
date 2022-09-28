@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm run client\" \"npm run server\"",
-    "server": "npm run build && node dist/server.js",
-    "build": "npx tsc",
+    "server": "node server/server.js",
     "client": "vite"
   },
   "author": "",
